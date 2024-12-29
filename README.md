@@ -1,0 +1,1 @@
+This is an Immerse Boundary Method (IBM) 3D code for incompressible, laminar, unsteady flow with a single fiber immersed in the fluid domain. Fourier method is used to solve the discretized Navier-Stokes equations.
