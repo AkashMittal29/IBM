@@ -13,18 +13,20 @@ PROGRAM main
 
     CALL initialize()
 
-    print*, xf1, forcef1
+    CALL write_contour_file('Result/step_'//TRIM(num2str('(I6.6)',0))//'.dat') 
+    CALL write_fiber_file('Result/fiber_step_'//TRIM(num2str('(I6.6)',0))//'.dat')
 
     ! Time loop 
-    DO it = 1,1 !0000
+    DO it = 1,300000
         CALL solve()
-        print*,it,' ',wtime
+        print*,it,'t = ',it*DT,' ',wtime
 
-        IF MOD(it,1) then
-            CALL write_Tecplot_file() ! Writing x, u, p, xf1, x0f1, forcef1
+        IF(MOD(it,5000)==0) THEN
+            ! Writing x, u, p, xf1, x0f1, forcef1
+            CALL write_contour_file('Result/step_'//TRIM(num2str('(I6.6)',it))//'.dat') 
+            CALL write_fiber_file('Result/fiber_step_'//TRIM(num2str('(I6.6)',it))//'.dat')
         END IF
     END DO
 
-    print*, xf1, forcef1
 
 END PROGRAM main

@@ -207,7 +207,7 @@ MODULE mod_solve
         CALL fft_forward(v(:,:,:,2),v_hat(:,:,:,2))
         CALL fft_forward(v(:,:,:,3),v_hat(:,:,:,3))
 
-        CALL compute_next() ! solving for u_hat and v_hat for the next time step
+        CALL compute_next() ! solving for u_hat and p_hat for the next time step
 
         CALL fft_backward(u_hat(:,:,:,1),u(:,:,:,1))
         CALL fft_backward(u_hat(:,:,:,2),u(:,:,:,2))
@@ -349,7 +349,7 @@ MODULE mod_solve
 
                     ! Calculating p_hat for next time step
                     IF(sin_val(1)==0 .AND. sin_val(2)==0 .AND. sin_val(3)==0) THEN
-                        p_hat(k1+1,k2+1,k3+1) = 0.0
+                        p_hat(k1+1,k2+1,k3+1) = P_ATM ! 0.0
                     ELSE
                         p_hat(k1+1,k2+1,k3+1) = SUM(v_hat(k1+1,k2+1,k3+1,:)*sin_val(:)) &
                                                 /(DT/RHO/H*I_UNIT*(SUM(sin_val**2)))                            
