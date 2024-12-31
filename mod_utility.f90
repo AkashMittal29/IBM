@@ -146,7 +146,7 @@ MODULE mod_utility
     END SUBROUTINE write_fiber_file
 
 
-    ! To convert number to string
+    ! To convert number to string. Use TRIM(output) at function call to remove white spaces at the end of the string if needed.
     FUNCTION num2str_real(format, value) RESULT(output)
         CHARACTER (LEN=*) :: format
         REAL :: value
@@ -155,7 +155,8 @@ MODULE mod_utility
         output = ADJUSTL(output)
     END FUNCTION num2str_real
 
-    ! To convert integer to string
+
+    ! To convert integer to string. Use TRIM(output) at function call to remove white spaces at the end of the string if needed.
     FUNCTION num2str_integer(format, value) RESULT(output)
         CHARACTER (LEN=*) :: format
         INTEGER :: value
