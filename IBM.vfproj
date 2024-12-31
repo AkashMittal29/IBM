@@ -57,6 +57,7 @@
 			<File RelativePath=".\main.f90">
 			</File>
 			<File RelativePath=".\mod_initialize.f90"/>
+			<File RelativePath=".\mod_solve.f90"/>
 			<File RelativePath=".\mod_utility.f90"/>
 			<File RelativePath=".\mod_variables.f90">
 			</File>

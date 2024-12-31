@@ -3,23 +3,28 @@ PROGRAM main
     USE mod_variables
     USE mod_initialize
     USE mod_utility
+    USE mod_solve
+    USE omp_lib
+    IMPLICIT NONE
+    
 
     ! Defining variables
-    INTEGER i
-
-    i = 2
-    print*, i, 'itext'
-    print*, RHO, 'complex: ', I_UNIT
+    INTEGER it
 
     CALL initialize()
-    !print*, u(1,1,1,:), p(1,1,1)
-    !print*, 'x values'; CALL print_matrix_real_3d(x(:,:,:,1))
-    !print*, 'y values'; CALL print_matrix_real_3d(x(:,:,:,2))
-    !print*, 'z values'; CALL print_matrix_real_3d(x(:,:,:,3))
-    print*,'xof1: ', x0f1
-    print*, 'xf1', xf1
-    print*, 'forcef1', forcef1
 
-    
+    print*, xf1, forcef1
+
+    ! Time loop 
+    DO it = 1,1 !0000
+        CALL solve()
+        print*,it,' ',wtime
+
+        IF MOD(it,1) then
+            CALL write_Tecplot_file() ! Writing x, u, p, xf1, x0f1, forcef1
+        END IF
+    END DO
+
+    print*, xf1, forcef1
 
 END PROGRAM main

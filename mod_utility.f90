@@ -64,4 +64,12 @@ MODULE mod_utility
     END SUBROUTINE print_matrix_real_3d
 
 
+    ! To write data into Tecplot readable files
+    SUBROUTINE write_Tecplot_file()
+        
+
+    END SUBROUTINE write_Tecplot_file
+
+
+
 END MODULE mod_utility
