@@ -30,7 +30,7 @@ MODULE mod_initialize
         xf1(:,1)  = 0.5                     ! x coordinates
         xf1(:,2)  = 0.45 + [(i, i=0,n_points-1)]*H/2 ! y coordinates
         xf1(:,3)  = 0.0                     ! z coordinates
-        x0f1(:,1) = 0.6                     ! x coordinates
+        x0f1(:,1) = 0.5                     ! x coordinates
         x0f1(:,2) = xf1(:,2)                ! y coordinates
         x0f1(:,3) = 0.0                     ! z coordinates
         forcef1   = -K*(xf1-x0f1)/n_points ! Force = -K*dx, -ve if dx is +ve, distributed among nodes
@@ -53,7 +53,7 @@ MODULE mod_initialize
         arr3 = [0]               ! z-axis, for 2d case
         CALL meshgrid_3d(arr1, arr2, arr3, x(:,:,:,1), x(:,:,:,2), x(:,:,:,3))
         
-        u = 0  ! Considering flow stationary at t = 0
+        u = 0.0  ! Considering flow stationary at t = 0
         P = P_ATM
         CALL update_domain_force() ! Computing force_dom from the initial fiber forces    
     END SUBROUTINE initialize_domain

@@ -86,11 +86,12 @@ MODULE mod_solve
                 END DO dom_nodes_loop_2d
             END IF
 
+            ! Updating the fiber's equilibrium position as per the prescribed motion
+            x0f1(i,1) = x0f1(i,1)+1*DT; ! Moving with a constant velocity of 2 m/s in x-dir
+
             ! Updating the fiber node force
             forcef1(i,:)   = -K*(xf1(i,:)-x0f1(i,:))/n_points ! Force = -K*dx, -ve if dx is +ve, distributed among nodes
-
         END DO Fiber_Loop
-
     END SUBROUTINE update_fiber
 
 
@@ -152,7 +153,14 @@ MODULE mod_solve
                         IF(a(i2,2)<1) THEN; ay = a(i2,2)+Nn; 
                             ELSE IF(a(i2,2)>Nn) THEN; ay = a(i2,2)-Nn; 
                             ELSE; ay = a(i2,2); END IF
-                        
+
+                        IF(ax>Nn .OR. ax<1) THEN
+                            PRINT*, 'Body has moved beyond 1.5 the size '// &
+                                    'of the given domain. Yet no condition is '// &
+                                    'implemented to tackle this.'
+                            STOP
+                        END IF
+
                         ! Updating the fiber node position
                         force_dom(ax,ay,1,:) = force_dom(ax,ay,1,:) + forcef1(i,:) &
                                               *smooth_delta_2d(b(1:2)-[a(i1,1),a(i2,2)]) ! Fiber can go out of domain

@@ -1,12 +1,14 @@
 
+cur_dir = pwd;
+cd('Result/');
 files_fiber = dir('fiber*.dat');
 files_fluid = dir('step*.dat');
 
 files_fiber = {files_fiber(:).name};
 files_fluid = {files_fluid(:).name};
 
-writerObj = VideoWriter('data_u','Uncompressed AVI');
-writerObj.FrameRate = 2; open(writerObj);
+writerObj = VideoWriter('contours','Uncompressed AVI');
+writerObj.FrameRate = 5; open(writerObj);
 figure('position',[50,100,1500,600])
 for i=1:1:size(files_fiber,2)
     data_fluid = importdata(files_fluid{i},' ',3);
@@ -16,12 +18,12 @@ for i=1:1:size(files_fiber,2)
     data_fiber = importdata(files_fiber{i},' ',3);
     data_fiber_header = data_fiber.textdata;
     data_fiber = data_fiber.data;
-    
+    clf;
     subplot(1,3,1);
         contourf(reshape(data_fluid(:,1),[26,26]), ...
                  reshape(data_fluid(:,2),[26,26]), ...
                  reshape(data_fluid(:,4),[26,26]),100,'EdgeColor','none')
-        colormap('jet'); colorbar; clim([-0.03,0.03]); shading('interp');
+        colormap('jet'); colorbar; clim([-0.15,0.15]); shading('interp');
         hold on;
         plot(data_fiber(:,1),data_fiber(:,2),'-k','linewidth',2);
         plot(data_fiber(:,4),data_fiber(:,5),'--k','linewidth',1);
@@ -32,7 +34,7 @@ for i=1:1:size(files_fiber,2)
         contourf(reshape(data_fluid(:,1),[26,26]), ...
                  reshape(data_fluid(:,2),[26,26]), ...
                  reshape(data_fluid(:,5),[26,26]),100,'EdgeColor','none')
-        colormap('jet'); colorbar; clim([-0.03,0.03]); shading('interp');
+        colormap('jet'); colorbar; clim([-0.15,0.15]); shading('interp');
         hold on;
         plot(data_fiber(:,1),data_fiber(:,2),'-k','linewidth',2);
         plot(data_fiber(:,4),data_fiber(:,5),'--k','linewidth',1);
@@ -42,12 +44,12 @@ for i=1:1:size(files_fiber,2)
     subplot(1,3,3);
         contourf(reshape(data_fluid(:,1),[26,26]), ...
                  reshape(data_fluid(:,2),[26,26]), ...
-                 reshape(data_fluid(:,7),[26,26]),100,'EdgeColor','none')
-        colormap('jet'); colorbar; clim([101325-5,101325+5]); shading('interp');
+                 reshape(data_fluid(:,7),[26,26])-101325,100,'EdgeColor','none')
+        colormap('jet'); colorbar; clim([-0.1,0.1]); shading('interp');
         hold on;
         plot(data_fiber(:,1),data_fiber(:,2),'-k','linewidth',2);
         plot(data_fiber(:,4),data_fiber(:,5),'--k','linewidth',1);
-        xlabel('x'); ylabel('y'); axis equal; title(sprintf('Contour: p, frame=%d',i));
+        xlabel('x'); ylabel('y'); axis equal; title(sprintf('Contour: p-patm, frame=%d',i));
         set(gca,'fontsize',14,'FontWeight','bold');
 
 
@@ -56,3 +58,5 @@ for i=1:1:size(files_fiber,2)
 
 end
 close(writerObj);
+
+cd(cur_dir);

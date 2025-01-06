@@ -4,10 +4,10 @@ MODULE mod_variables
     ! Constants
     COMPLEX, PARAMETER :: I_UNIT = (0.0,1.0)      ! root of -1
     REAL, PARAMETER    :: PI = 3.141592653589793; ! pi
-    REAL, PARAMETER    :: RHO   = 1.0          ! Fluid density, kg/m^3
+    REAL, PARAMETER    :: RHO   = 30.0          ! Fluid density, kg/m^3
     REAL, PARAMETER    :: MU    = 1.0 !0.0010518       ! Dynamic viscosity, N*s/m2
     REAL, PARAMETER    :: P_ATM = 101325.0        ! Atmospheric pressure, N/m^2
-    REAL, PARAMETER    :: K     = 100.0         ! Spring constant (stiffness) for fiber nodes, N/m
+    REAL, PARAMETER    :: K     = 100000.0         ! Spring constant (stiffness) for fiber nodes, N/m
 
     ! Variables
     !! Domain discretization
@@ -26,7 +26,7 @@ MODULE mod_variables
     REAL, ALLOCATABLE  :: forcef1(:,:) ! Force on fiber nodes (n,3)-> [FX, FY, FZ]
 
     !! Time discretization
-    REAL,    PARAMETER :: DT = 0.0001  ! Time step size, sec
+    REAL,    PARAMETER :: DT = 0.0000001  ! Time step size, sec
     INTEGER, PARAMETER :: NT = 1       ! No. of time steps
 
     ! Auxiliary variables
