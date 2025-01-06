@@ -27,9 +27,9 @@ MODULE mod_readwrite
             IF (io_status/=0) EXIT ! End of file
 
             text = TRIM(ADJUSTL(text))
-            ! To ignore text with leading # (considered as comments) 
+            ! To ignore text with leading ! (considered as comments) 
             ! and to ignore text which does not have = sign, i.e. no assignment.
-            IF( text(1:1)=='#' .OR. .NOT.(index(text,'=') > 0) ) THEN 
+            IF( text(1:1)=='!' .OR. .NOT.(index(text,'=') > 0) ) THEN 
                 CYCLE
             END IF
 
@@ -43,13 +43,24 @@ MODULE mod_readwrite
 
             ! Assigning values to the variables
             SELECT CASE (trim(adjustl(text1)))
-                CASE ('data1'); READ(text2,*) data1
-                CASE ('data2'); READ(text2,*) data2
+                CASE ('RHO');        READ(text2,*) RHO
+                CASE ('MU');         READ(text2,*) MU
+                CASE ('P_ATM');      READ(text2,*) P_ATM 
+                CASE ('K');          READ(text2,*) K
+                CASE ('L');          READ(text2,*) L
+                CASE ('Ne');         READ(text2,*) Ne
+                CASE ('DT');         READ(text2,*) DT
+                CASE ('NT');         READ(text2,*) NT   
+                CASE ('save_every'); READ(text2,*) save_every    
                 CASE DEFAULT; print*, TRIM(text),' variable is not recognized';
                 END SELECT
         END DO
+        WRITE(*,*) 'Input has been read.'
 
-
+        ! Assigning derived variables
+        Nn = Ne+1 ! Number of nodes in each direction, Nn = Ne+1
+        H  = L/Ne ! Uniform grid size, H = L/Ne
+        WRITE(*,*) 'Derived variables have been assigned.'
 
     END SUBROUTINE read_input
 

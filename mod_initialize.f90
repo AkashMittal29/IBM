@@ -39,8 +39,8 @@ MODULE mod_initialize
 
     ! Initializing fluid domain
     SUBROUTINE initialize_domain()
-        REAL, DIMENSION(Nn) :: arr1, arr2
-        REAL, DIMENSION(1)  :: arr3 ! For 2d case
+        REAL(doubtype), DIMENSION(Nn) :: arr1, arr2
+        REAL(doubtype), DIMENSION(1)  :: arr3 ! For 2d case
         INTEGER i
         print*,'in fluid initialization'
 

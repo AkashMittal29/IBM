@@ -1,6 +1,6 @@
 
 cur_dir = pwd;
-cd('Result/');
+cd('Result_/');
 files_fiber = dir('fiber*.dat');
 files_fluid = dir('step*.dat');
 

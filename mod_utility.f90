@@ -14,8 +14,8 @@ MODULE mod_utility
     SUBROUTINE meshgrid_3d(arr1, arr2, arr3, i1_mat, i2_mat, i3_mat) 
         ! for 2d case, arr3 is an array with only one element describing value of z coordinate,
         ! and shape of i_mat is (SIZE(arr1,1), SIZE(arr2,1), SIZE(arr3,1)=1)
-        REAL, INTENT(IN) :: arr1(:), arr2(:), arr3(:) ! arr1, arr2, arr3 correspond x, y, z direction respectively
-        REAL, INTENT(OUT) :: i1_mat(:,:,:), i2_mat(:,:,:), i3_mat(:,:,:) ! the resultant meshgrid matrices
+        REAL(doubtype), INTENT(IN) :: arr1(:), arr2(:), arr3(:) ! arr1, arr2, arr3 correspond x, y, z direction respectively
+        REAL(doubtype), INTENT(OUT) :: i1_mat(:,:,:), i2_mat(:,:,:), i3_mat(:,:,:) ! the resultant meshgrid matrices
         INTEGER n_dim(3), i
 
         n_dim(1) = SIZE(arr1,1); n_dim(2) = SIZE(arr2,1); n_dim(3) = SIZE(arr3,1);

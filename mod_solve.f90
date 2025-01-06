@@ -291,8 +291,8 @@ MODULE mod_solve
 
     ! To convert into frequency domain
     SUBROUTINE fft_forward(phi, phi_hat)
-        REAL,    INTENT(IN)  :: phi(:,:,:)
-        COMPLEX, INTENT(OUT) :: phi_hat(:,:,:) ! Must have same shape as of phi
+        REAL(doubtype),    INTENT(IN)  :: phi(:,:,:)
+        COMPLEX(doubtype), INTENT(OUT) :: phi_hat(:,:,:) ! Must have same shape as of phi
         COMPLEX(C_DOUBLE_COMPLEX), ALLOCATABLE :: in(:,:,:), out(:,:,:)
         type(C_PTR) :: plan
 
@@ -317,8 +317,8 @@ MODULE mod_solve
 
     ! To convert into time domain from frequency domain
     SUBROUTINE fft_backward(phi_hat, phi)
-        COMPLEX, INTENT(IN)  :: phi_hat(:,:,:)
-        REAL,    INTENT(OUT) :: phi(:,:,:) ! Must have same shape as of phi_hat
+        COMPLEX(doubtype), INTENT(IN)  :: phi_hat(:,:,:)
+        REAL(doubtype),    INTENT(OUT) :: phi(:,:,:) ! Must have same shape as of phi_hat
         COMPLEX(C_DOUBLE_COMPLEX), ALLOCATABLE :: in(:,:,:), out(:,:,:)
         type(C_PTR) :: plan
 
