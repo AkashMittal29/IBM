@@ -1,0 +1,63 @@
+# By Akash Mittal
+# Jan 12, 2025
+
+################################################
+# INFO TO EXTRACT tar FILES
+################################################
+1. Download fftw library (http: fftw-3.3.10.tar.gz for Linux) from https://www.fftw.org/
+
+2. To extract the files use following command:
+	tar -xzvf fftw-3.3.10.tar.gz
+	or 
+	if want to extract somewhere else,
+	tar -xzvf fftw-3.3.10.tar.gz -C /path/to/other/folde
+
+
+################################################
+# INFO TO INSTALL
+################################################
+FFTW library installation in local directory without the need of root directory permission (install in the extracted directory):
+(ref: https://www.fftw.org/fftw2_doc/fftw_6.html)
+
+./configure --prefix=/gpfs/research/mecfd/Akash_Mittal/Learning/FORTRAN/08_Using_external_lib_FFTW/FFTW_Lib/fftw-3.3.10/
+make
+make install
+
+
+################################################
+# INFO TO COMPILE FORTRAN CODE WITH FFTW3 LIBRARY
+################################################
+compile following way
+
+1. In Fortran code:
+    USE, INTRINSIC :: ISO_C_BINDING	
+	IMPLICIT NONE
+
+	include 'fftw3.f03'
+	!include '/gpfs/research/mecfd/Akash_Mittal/Softwares/fftw-3.3.10/include/fftw3.f03'
+	!include '/gpfs/research/mecfd/Akash_Mittal/Softwares/fftw-3.3.10/include/fftw3_mkl.f'
+		! Note: mkl -> is created when installed with intel compiler. Reinstall FFTW after 
+		! loading intel module (checked: didn't create mkl file).
+
+
+2. While compiling:		  
+gfortran -I /.../.../include/ -L /.../.../lib/ using_fftw.f90 -o using_fftw -lfftw3
+
+or
+
+If full file path is given for fftw3.f03 file while including in the fortran code, then include path is not required during compilation. 
+This is better. 
+gfortran using_fftw.f90 -o using_fftw -L /.../.../lib/ -lfftw3
+
+or
+
+first create object file and then compile (useful if multiple source files are there):
+gfortran -c using_fftw.f90 
+gfortran -o using_fftw *.o -L /.../.../lib/ -lfftw3
+              ^ ouput executable file
+                *.o -> all the object files
+                
+                
+                
+                
+                

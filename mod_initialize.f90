@@ -19,7 +19,7 @@ MODULE mod_initialize
 
      ! Initializing fiber
     SUBROUTINE initialize_fiber()
-        INTEGER :: n_points = 9 ! No. of fiber nodes/points
+        INTEGER :: n_points = 9 !9 ! No. of fiber nodes/points
         INTEGER i
         print*,'in fiber initialization' 
         
@@ -33,7 +33,7 @@ MODULE mod_initialize
         x0f1(:,1) = 0.5                     ! x coordinates
         x0f1(:,2) = xf1(:,2)                ! y coordinates
         x0f1(:,3) = 0.0                     ! z coordinates
-        forcef1   = -K*(xf1-x0f1)/n_points ! Force = -K*dx, -ve if dx is +ve, distributed among nodes
+        CALL update_fiber_force() ! Force = -K*dx, -ve if dx is +ve, distributed among nodes
     END SUBROUTINE initialize_fiber
 
 
@@ -67,7 +67,6 @@ MODULE mod_initialize
                   p_hat(SIZE(x,1),SIZE(x,2),SIZE(x,3)) &
                 )
     END SUBROUTINE allocate_aux
-
 
 
 END MODULE mod_initialize

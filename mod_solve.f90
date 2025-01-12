@@ -87,12 +87,28 @@ MODULE mod_solve
             END IF
 
             ! Updating the fiber's equilibrium position as per the prescribed motion
-            x0f1(i,1) = x0f1(i,1)+1*DT; ! Moving with a constant velocity of 2 m/s in x-dir
-
-            ! Updating the fiber node force
-            forcef1(i,:)   = -K*(xf1(i,:)-x0f1(i,:))/n_points ! Force = -K*dx, -ve if dx is +ve, distributed among nodes
+            x0f1(i,1) = x0f1(i,1)+1*(1-EXP(-time/1))*DT; ! Moving with a constant velocity of 0.5 m/s in x-dir after 1 sec
+                                       ! ^ to gradually increase velocity from zero-> smooth imposition of velocity.
         END DO Fiber_Loop
+
+        ! Updating the fiber node force
+        CALL update_fiber_force()
     END SUBROUTINE update_fiber
+
+
+    ! To update the fiber node forces
+    SUBROUTINE update_fiber_force()
+        INTEGER n_points, i
+        n_points = SIZE(xf1,1)
+        forcef1   = -K*(xf1-x0f1)/n_points ! Force = -K*dx, -ve if dx is +ve, distributed among nodes
+
+        ! Force within fiber (elastic fiber force model)
+        DO i=1,n_points-1 ! open fiber
+            forcef1(i,:)   = forcef1(i,:)  +K/10*( (xf1(i+1,:)-xf1(i,:))-(x0f1(i+1,:)-x0f1(i,:)) )
+            forcef1(i+1,:) = forcef1(i+1,:)-K/10*( (xf1(i+1,:)-xf1(i,:))-(x0f1(i+1,:)-x0f1(i,:)) )
+        END DO
+
+    END SUBROUTINE update_fiber_force
 
 
     ! To update domain forces by distributing the fiber forces through the smoothed delta function

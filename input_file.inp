@@ -1,4 +1,10 @@
-! Following are the input values entered by the user
+! Following are the input values entered by the user.
+! An entry (a line) should consist of the text: variable_name=value without whitespace in between.
+! Variable can be given anywhere (order does not matter).  
+! Any text in a line after the first white space is ignored.
+! Any text starting with ! character is ignored.
+! Any text without = character in the text is ignored.
+! Write file paths with \ instead of /. Ex. This\is\example
 
 RHO=30.0            ! Fluid density, kg/m^3
 MU=1.0              ! Dynamic viscosity, N*s/m2
@@ -6,9 +12,18 @@ P_ATM=101325.0      ! Atmospheric pressure, N/m^2
 K=100000.0          ! Spring constant (stiffness) for fiber nodes, N/m
 L=1.0               ! Domain length (equal in all directions) -> cubic domain
 Ne=25               ! Number of elements in each direction 
-DT=0.000001        ! Time step size, sec
-NT=50000              ! No. of time steps
-save_every=10000      ! Save data every save_every-th time step
+DT=0.000001         ! Time step size, sec
+NT=1000000          ! No. of time steps or no. of time steps after last time step (for restart)
 
+! Saving results
+save_every=10000     ! Save data every save_every-th time step
+result_dir=Result_07_fiber_model  ! Result directory path
+
+! Saving restart file
+save_restart_every=100000 ! Save restart file every restart_every-th time step
+
+! Using restart file
+use_restart=0                               ! Switch to use restart file
+restart_file=Result_02\restart_005000.bin   ! Restart file path
 
 
