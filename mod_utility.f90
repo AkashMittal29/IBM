@@ -89,6 +89,24 @@ MODULE mod_utility
         WRITE(output,format) value
         output = ADJUSTL(output)
     END FUNCTION num2str_integer
+	
+	
+	! To replace a character in a string
+	SUBROUTINE replace_char(text,to_repl,repl_with)
+		CHARACTER(LEN=*), INTENT(INOUT) :: text
+		CHARACTER(LEN=1), INTENT(IN) :: to_repl, repl_with
+		INTEGER ind
+	    
+		! Replacing all instances of to_repl to repl_with in text
+		DO WHILE (.TRUE.)
+			IF(index(text,to_repl)>0) THEN 
+				ind = index(text,to_repl)
+				text(ind:ind)=repl_with
+			ELSE
+				EXIT
+			END IF
+		END DO
+	END SUBROUTINE replace_char
 
 
 END MODULE mod_utility

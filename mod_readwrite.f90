@@ -2,6 +2,7 @@ MODULE mod_readwrite
     USE mod_variables
     USE mod_initialize
     USE mod_solve
+	USE mod_utility
     USE, INTRINSIC :: iso_fortran_env, ONLY : error_unit
     IMPLICIT NONE
 
@@ -58,6 +59,7 @@ MODULE mod_readwrite
                 CASE ('save_restart_every'); READ(text2,*) save_restart_every  
                 CASE ('use_restart');  READ(text2,*) use_restart  
                 CASE ('restart_file'); READ(text2,*) restart_file 
+									   CALL replace_char(restart_file,'\','/')
                 CASE DEFAULT; print*, TRIM(text),' variable is not recognized';
                 END SELECT
         END DO
@@ -192,12 +194,14 @@ MODULE mod_readwrite
         INTEGER, INTENT(OUT) :: time_step
         INTEGER funit, dim, nx, ny, nz, nf, dimf
         REAL(doubtype) :: DT_restart
-        INTEGER :: arr(6)
+        INTEGER :: arr(6), io_status
+		
+		PRINT*, 'Reading restart file:',file
 
         ! opening file (binary)
         OPEN(NEWUNIT=funit, FILE=file, &
              FORM='UNFORMATTED', &
-             ACCESS='SEQUENTIAL')
+             ACCESS='SEQUENTIAL', IOSTAT=io_status)
 
         ! Reading data
         READ(funit) time_step

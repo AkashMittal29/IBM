@@ -4,7 +4,7 @@
 ! Any text in a line after the first white space is ignored.
 ! Any text starting with ! character is ignored.
 ! Any text without = character in the text is ignored.
-! Write file paths with \ instead of /. Ex. This\is\example
+! Write file paths with \ instead of /. Ex. This\is\example. The character is replaced in the code.
 
 RHO=30.0            ! Fluid density, kg/m^3
 MU=1.0              ! Dynamic viscosity, N*s/m2
@@ -13,17 +13,17 @@ K=100000.0          ! Spring constant (stiffness) for fiber nodes, N/m
 L=1.0               ! Domain length (equal in all directions) -> cubic domain
 Ne=25               ! Number of elements in each direction 
 DT=0.000001         ! Time step size, sec
-NT=1000000          ! No. of time steps or no. of time steps after last time step (for restart)
+NT=5          ! No. of time steps or no. of time steps after last time step (for restart)
 
 ! Saving results
-save_every=10000     ! Save data every save_every-th time step
+save_every=1     ! Save data every save_every-th time step
 result_dir=Result_07_fiber_model  ! Result directory path
 
 ! Saving restart file
-save_restart_every=100000 ! Save restart file every restart_every-th time step
+save_restart_every=5 ! Save restart file every restart_every-th time step
 
 ! Using restart file
-use_restart=0                               ! Switch to use restart file
-restart_file=Result_02\restart_005000.bin   ! Restart file path
+use_restart=1                               ! Switch to use restart file
+restart_file=Result_07_fiber_model\restart_001000000.bin   ! Restart file path
 
 

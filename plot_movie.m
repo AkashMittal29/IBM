@@ -1,6 +1,6 @@
 
 cur_dir = pwd;
-cd('Result_/');
+cd('Result_07_fiber_model');
 files_fiber = dir('fiber*.dat');
 files_fluid = dir('step*.dat');
 
@@ -14,7 +14,7 @@ for i=1:1:size(files_fiber,2)
     data_fluid = importdata(files_fluid{i},' ',3);
     data_fluid_header = data_fluid.textdata;
     data_fluid = data_fluid.data;
-    
+    zlen = 1.6; % length in z-dir
     data_fiber = importdata(files_fiber{i},' ',3);
     data_fiber_header = data_fiber.textdata;
     data_fiber = data_fiber.data;
